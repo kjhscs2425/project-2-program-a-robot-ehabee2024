@@ -164,6 +164,10 @@ class SimulatorDriver:
         sys.exit()
         
     def start_simulation(self):
+        x = 930
+        y = 0
+        import os
+        os.environ['SDL_VIDEO_WINDOW_POS'] = '%d,%d' % (x, y)
         # Initialize the Pygame window
         pygame.init()
         self.screen = pygame.display.set_mode((600, 400))
