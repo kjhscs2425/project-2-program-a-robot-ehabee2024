@@ -1,56 +1,46 @@
-# Import the robot control commands from the library
-from simulator import robot
 import time
+import random
 
-def move_robot (distance) : 
-    robot.moves(1, 0, 1)
-    robot.moves(0, 1, 0)
-    robot.moves(0, 1, 1)
-    robot.moves(1, 1, 0)
-    robot.moves(1, 1, 1)
-    robot.moves(1, 1, 2)
-    robot.moves(1, 2, 1)
-    robot.moves(1, 2, 1)
-    robot.moves(1, 2, 2)
-    robot.moves(2, 1, 1)
-    robot.moves(2, 2, 1)
-    robot.moves(3, 2, 1)
-    robot.moves(3, 2, 2)
-    robot.moves(3, 3, 3)
-    
-    # Simulate the robot's motor control systemclass Robot:
+# Simulating a Robot class
+class Robot:
+    def __init__(self):
         self.motor_left = 0
         self.motor_right = 0
-    
-def move_forward(self, steps):
-        """Moves the robot forward by a number of steps"""
+
+    def move_forward(self, steps):
+        """Moves the robot forward by a number of steps."""
+        print(f"Moving forward {steps} steps.")
         self.motor_left = 1
         self.motor_right = 1
-    
-def turn_left(self, angle):
-        """Turns the robot left by a given angle"""
+        time.sleep(1)
+
+    def turn_left(self, angle):
+        """Turns the robot left by a given angle."""
         print(f"Turning left by {angle} degrees.")
         self.motor_left = -1
         self.motor_right = 1
-    
-def turn_right(self, angle):
-        """Turns the robot right by a given angle"""
+        time.sleep(1)
+
+    def turn_right(self, angle):
+        """Turns the robot right by a given angle."""
         print(f"Turning right by {angle} degrees.")
         self.motor_left = 1
         self.motor_right = -1
-    
-def stop(self):
-        """Stops the robot's movement"""
+        time.sleep(1)
+
+    def stop(self):
+        """Stops the robot's movement."""
+        print("Robot stopped.")
         self.motor_left = 0
         self.motor_right = 0
-        print("Robot stopped.")
-    
-def get_sonar_reading(self):
-        """Simulate getting a sonar reading"""
-       
+
+    def get_sonar_reading(self):
+        """Simulate getting a sonar reading (random distance between 10 and 100 cm)."""
+        return random.randint(10, 100)
+
 # Function to get a valid user input
 def get_valid_input(prompt, valid_choices):
-    """Get a valid input from the user"""
+    """Get a valid input from the user."""
     while True:
         user_input = input(prompt)
         if user_input in valid_choices:
@@ -58,9 +48,11 @@ def get_valid_input(prompt, valid_choices):
         else:
             print(f"Invalid input. Please choose from {valid_choices}")
 
-# Function to move the robot based on sensor reading
+# Function to move the robot based on sonar readings
 def move_based_on_sonar(robot):
-    """Move robot based on sonar readings (avoid obstacles)"""
+    """Move robot based on sonar readings (avoid obstacles)."""
+    sonar_distance = robot.get_sonar_reading()
+    print(f"Sonar reading: {sonar_distance} cm")
     
     if sonar_distance < 20:
         print("Obstacle detected! Turning left.")
@@ -75,7 +67,7 @@ def move_based_on_sonar(robot):
 
 # Recursive function to keep checking sensor and moving the robot
 def autonomous_move(robot, duration):
-    """Move the robot autonomously for a specified duration (seconds)"""
+    """Move the robot autonomously for a specified duration (seconds)."""
     start_time = time.time()
     while time.time() - start_time < duration:
         move_based_on_sonar(robot)
@@ -83,8 +75,17 @@ def autonomous_move(robot, duration):
 
 # Function to execute robot movements based on user choice
 def execute_user_choice(robot):
-    """Execute a user-defined movement based on input"""
-   
+    """Execute a user-defined movement based on input."""
+    print("\nChoose a movement action:")
+    print("1: Move Forward")
+    print("2: Turn Left")
+    print("3: Turn Right")
+    print("4: Stop")
+    print("5: Autonomous Movement")
+    
+
+    choice = get_valid_input("Enter your choice (1-5): ", ["1", "2", "3", "4", "5"])
+
     if choice == "1":
         steps = int(input("How many steps forward? "))
         robot.move_forward(steps)
@@ -100,6 +101,7 @@ def execute_user_choice(robot):
         duration = int(input("How many seconds should the robot move autonomously? "))
         autonomous_move(robot, duration)
 
+# Main function to control robot behavior
 def main():
     # Initialize the robot
     robot = Robot()
@@ -115,10 +117,5 @@ def main():
             print("Exiting robot control...")
             break
 
-
-
-
-   
-    #Distance  (float): The distaZnce the robot will move in meters
-left, right = robot.sonars() #Simulate the robot moving a specific distance
-
+if __name__ == "__main__":
+    main()
